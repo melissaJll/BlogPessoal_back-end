@@ -21,34 +21,26 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 
 	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
-
 		if (usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
 			return Optional.empty();
-
 		usuario.setSenha(criptografarSenha(usuario.getSenha()));
 
 		return Optional.of(usuarioRepository.save(usuario));
-	
 	}
 
 	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
-		
 		if(usuarioRepository.findById(usuario.getId()).isPresent()) {
-
 			Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
-
 			if ( (buscaUsuario.isPresent()) && ( buscaUsuario.get().getId() != usuario.getId()))
 				throw new ResponseStatusException(
 						HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
-
 			usuario.setSenha(criptografarSenha(usuario.getSenha()));
-
+			
 			return Optional.ofNullable(usuarioRepository.save(usuario));
 		}
 		return Optional.empty();
 	
 	}	
-
 	public Optional<UsuarioLogin> autenticarUsuario(Optional<UsuarioLogin> usuarioLogin) {
 		Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
 
@@ -74,7 +66,6 @@ public class UsuarioService {
 	}
 	
 	private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
-		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
 		return encoder.matches(senhaDigitada, senhaBanco);
