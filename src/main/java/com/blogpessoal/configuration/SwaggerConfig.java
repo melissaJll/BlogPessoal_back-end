@@ -22,7 +22,7 @@ public class SwaggerConfig {
 					.description("Projeto - Blog criado para mostrar um pouco sobre mim e minhas habilidades ")
 					.version("v0.0.1")
 				.license(new License()
-					.name("Generation Brasil")
+					.name("Generation ")
 					.url("https://brazil.generation.org/"))
 				.contact(new Contact()
 					.name("Melissa Julia L.L.")
