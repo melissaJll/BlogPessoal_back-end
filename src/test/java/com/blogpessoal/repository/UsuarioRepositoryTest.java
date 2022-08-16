@@ -36,7 +36,7 @@ public class UsuarioRepositoryTest {
 	@BeforeAll
 	void start() {
 		usuarioRepository.deleteAll();
-		usuarioRepository.save(new Usuario(0L, "joao da silva","i.imgur","joao@email.com","12345678"));
+		usuarioRepository.save(new Usuario(0L, "joao da Silva","i.imgur","joao@email.com","12345678"));
 		usuarioRepository.save(new Usuario(0L, "Manuela da Silva", "https://i.imgur.com/NtyGneo.jpg", "manuela@email.com", "13465278"));	
 		usuarioRepository.save(new Usuario(0L, "Adriana da Silva", "https://i.imgur.com/mB3VM2N.jpg", "adriana@email.com", "13465278"));
         usuarioRepository.save(new Usuario(0L, "Paulo Antunes", "https://i.imgur.com/JR7kUFU.jpg", "paulo@email.com", "13465278"));
@@ -52,17 +52,12 @@ public class UsuarioRepositoryTest {
 	@Test
 	@DisplayName("Retorna 3 usuarios")
 	public void deveRetornarTresUsuarios() {
-
 		List<Usuario> listaDeUsuarios = usuarioRepository.findAllByNomeContainingIgnoreCase("Silva");
-	
+		assertEquals(3, listaDeUsuarios.size());
+		assertTrue(listaDeUsuarios.get(0).getNome().equals("joao da Silva"));
+		assertTrue(listaDeUsuarios.get(1).getNome().equals("Manuela da Silva"));
+		assertTrue(listaDeUsuarios.get(2).getNome().equals("Adriana da Silva"));	
 	}
 
-	@AfterAll
-	public void end() {
-		usuarioRepository.deleteAll();
-	}
-	
-	
-	
 
 }
